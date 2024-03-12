@@ -3,21 +3,22 @@ const { objectId } = require('./custom.validation');
 
 const createNewPlan = {
   body: Joi.object().keys({
+    bord: Joi.string(),
     board: Joi.string(),
     medium: Joi.string(),
     class: Joi.string(),
     subject: Joi.string(),
     book: Joi.string(),
     chapter: Joi.string(),
-    lesson: Joi.string(),
-    name: Joi.string().required(),
+    title: Joi.string().required(),
     date: Joi.string().required(),
     time: Joi.string().required(),
     type: Joi.string().required(),
     order: Joi.string().required(),
-    studioName: Joi.string().required(),
+    studioName: Joi.string().required().allow('', null),
     liveStreamingPath: Joi.string().allow('', null),
-    presenterName: Joi.string(),
+    presenterName: Joi.string().allow('', null),
+    questions: Joi.array().items(Joi.string()).allow('', null),
   }),
 };
 
@@ -51,22 +52,22 @@ const updatePlanById = {
   }),
   body: Joi.object()
     .keys({
-      status: Joi.string(),
-      name: Joi.string(),
-      date: Joi.string(),
-      time: Joi.string(),
-      type: Joi.string(),
+      bord: Joi.string(),
       board: Joi.string(),
       medium: Joi.string(),
       class: Joi.string(),
       subject: Joi.string(),
       book: Joi.string(),
       chapter: Joi.string(),
-      lesson: Joi.string(),
+      title: Joi.string(),
+      date: Joi.string(),
+      time: Joi.string(),
+      type: Joi.string(),
       order: Joi.string(),
-      studioName: Joi.string(),
+      studioName: Joi.string().allow('', null),
       liveStreamingPath: Joi.string().allow('', null),
-      presenterName: Joi.string(),
+      presenterName: Joi.string().allow('', null),
+      questions: Joi.array().items(Joi.string()).allow('', null),
     })
     .min(1),
 };

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 const { userTypes } = require('../config/tokens');
@@ -7,8 +8,6 @@ const {
   tokenService,
   emailService,
   otpService,
-  sansthanService,
-  departmentUserService,
 } = require('../services');
 
 // User register
@@ -17,23 +16,8 @@ const register = catchAsync(async (req, res) => {
   const tokens = await tokenService.generateAuthTokens(user);
   res.status(httpStatus.CREATED).send({ user, tokens });
 });
-// Sansthan register
-const sansthanRegister = catchAsync(async (req, res) => {
-  const sansthan = await sansthanService.createSansthan(req.body);
-  res.status(httpStatus.CREATED).send({ sansthan });
-});
 
-// Department register
-const createDepUser = catchAsync(async (req, res) => {
-  const depUser = await departmentUserService.createDepUser(req.body);
-  res.status(httpStatus.CREATED).send(depUser);
-});
 
-// TO check userId exist in sansthan
-const checkUserIdExist = catchAsync(async (req, res) => {
-  await sansthanService.checkUserIdExist(req.body.userID);
-  res.send('UserID not exist');
-});
 // Verify  phone number
 const verifyNumber = catchAsync(async (req, res) => {
   const otp = await otpService.generateOTP();
@@ -87,14 +71,6 @@ const resetPassFirtsTime = catchAsync(async (req, res) => {
   res.send({ user });
 });
 
-// Department first resepassword login
-const resetPassFirtsTimeForDeparrtment = catchAsync(async (req, res) => {
-  const { userName, mobNumber } = req.body;
-  const department = await departmentUserService.getDepByUserNameAndMob(userName, mobNumber);
-  // const tokens = await tokenService.generateAuthTokens(user);
-  res.send({ department });
-});
-
 // // School logins
 // const loginSchool = catchAsync(async (req, res) => {
 //   const { schoolName, password } = req.body;
@@ -136,12 +112,6 @@ const setPassword = catchAsync(async (req, res) => {
   res.send(user);
 });
 
-// Set password for department users
-const setPasswordForDepartment = catchAsync(async (req, res) => {
-  await departmentUserService.updateDepUserPasswordById(req.body.userId, req.body.password);
-  res.status(httpStatus.NO_CONTENT).send();
-});
-
 const sendVerificationEmail = catchAsync(async (req, res) => {
   const verifyEmailToken = await tokenService.generateVerifyEmailToken(req.user);
   await emailService.sendVerificationEmail(req.user.email, verifyEmailToken);
@@ -155,8 +125,6 @@ const verifyEmail = catchAsync(async (req, res) => {
 
 module.exports = {
   register,
-  sansthanRegister,
-  checkUserIdExist,
   verifyNumber,
   login,
   loginSansthan,
@@ -171,8 +139,5 @@ module.exports = {
   // loginSchool,
   resetPassFirtsTime,
   setPassword,
-  createDepUser,
   loginDepUser,
-  resetPassFirtsTimeForDeparrtment,
-  setPasswordForDepartment,
 };

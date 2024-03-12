@@ -1,14 +1,10 @@
 const httpStatus = require('http-status');
 const tokenService = require('./token.service');
 const userService = require('./user.service');
-const sansthanService = require('./sansthan.service');
-const staffService = require('./staff/staff.service');
 const Token = require('../models/token.model');
 const ApiError = require('../utils/ApiError');
 const { tokenTypes } = require('../config/tokens');
 // const studentService = require('./student.service');
-const campusService = require('./campus.service');
-const departmentUserService = require('./department.user.service');
 
 /**
  * Login with username and password
@@ -30,67 +26,12 @@ const loginUserWithEmailAndPassword = async (userName, password) => {
  * @param {string} password
  * @returns {Promise<User>}
  */
-const loginSansthanWithUserIDAndPassword = async (userID, password) => {
-  const sansthan = await sansthanService.getSansthanByUserID(userID);
-  if (!sansthan || !(await sansthan.isPasswordMatch(password))) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect userID or password');
-  }
-  return sansthan;
-};
-
-/**
- * Login with userName and password
- * @param {string} userName
- * @param {string} password
- * @returns {Promise<User>}
- */
-const loginDepUserWithUserNameAndPassword = async (userName, password) => {
-  const depuser = await departmentUserService.getDepUserByUserName(userName);
-  if (!depuser || !(await depuser.isPasswordMatch(password))) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect userName or password');
-  }
-  return depuser;
-};
-/**
- * Login with userID and password
- * @param {string} userID
- * @param {string} password
- * @returns {Promise<User>}
- */
-const loginStaff = async (userName, password) => {
-  const staff = await staffService.getStaffByUserName(userName);
-  if (!staff || !(await staff.isPasswordMatch(password))) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect userName or password');
-  }
-  return staff;
-};
-
-/**
- * Login with userID and password
- * @param {string} userID
- * @param {string} password
- * @returns {Promise<User>}
- */
 const getUserByUserNameAndMob = async (userName, mobNumber) => {
   const user = await userService.getUserByUserNameAndMob(userName, mobNumber);
   if (!user) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect userName or mobile number');
   }
   return user;
-};
-
-/**
- * Login with schoolName and password
- * @param {string} schoolName
- * @param {string} password
- * @returns {Promise<User>}
- */
-const loginSchool = async (schoolName, password) => {
-  const school = await campusService.getCampusBySchoolName(schoolName);
-  if (!school || !(await school.isPasswordMatch(password))) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect school Name or password');
-  }
-  return school;
 };
 
 /**
@@ -165,24 +106,6 @@ const setPassword = async (userId, newPassword) => {
 };
 
 /**
- * Reset password for department type of user
- * @param {string} userId
- * @param {string} newPassword
- * @returns {Promise}
- */
-const setPasswordForDepartment = async (userId, newPassword) => {
-  try {
-    const user = await departmentUserService.getDepUserById(userId);
-    if (!user) {
-      throw new Error();
-    }
-    await departmentUserService.updateDepUserPasswordById(user.id, { password: newPassword });
-  } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
-  }
-};
-
-/**
  * Verify email
  * @param {string} verifyEmailToken
  * @returns {Promise}
@@ -202,15 +125,10 @@ const verifyEmail = async (verifyEmailToken) => {
 };
 module.exports = {
   loginUserWithEmailAndPassword,
-  loginSansthanWithUserIDAndPassword,
   logout,
   refreshAuth,
   resetPassword,
   verifyEmail,
-  loginStaff,
   getUserByUserNameAndMob,
-  loginSchool,
   setPassword,
-  loginDepUserWithUserNameAndPassword,
-  setPasswordForDepartment,
 };

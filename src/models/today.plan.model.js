@@ -1,15 +1,16 @@
+/* eslint-disable prettier/prettier */
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
 const todayPlanSchema = mongoose.Schema(
   {
-    name: {
+    title: {
       type: String,
       required: true,
       trim: true,
     },
     date: {
-      type: String,
+      type: Date,
       required: true,
       trim: true,
     },
@@ -41,9 +42,6 @@ const todayPlanSchema = mongoose.Schema(
     chapter: {
       type: String,
     },
-    lesson: {
-      type: String,
-    },
     order: {
       type: String,
       required: true,
@@ -54,11 +52,11 @@ const todayPlanSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    status: {
-      type: String,
-      trim: true,
-      default: 'active',
-    },
+    // status: {
+    //   type: String,
+    //   trim: true,
+    //   default: 'active',
+    // },
     liveStreamingPath: {
       type: String,
       trim: true,
@@ -67,6 +65,11 @@ const todayPlanSchema = mongoose.Schema(
       type: String,
       trim: true,
     },
+    questions: {
+      type: [String],
+      default: [],
+      trim: true,
+    }
   },
   {
     timestamps: true,

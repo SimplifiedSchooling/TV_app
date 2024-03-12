@@ -38,79 +38,19 @@ module.exports = router;
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             required:
- *               - name
- *               - date
- *               - time
- *               - type
- *               - board
- *               - class
- *               - subject
- *               - book
- *               - chapter
- *               - lesson
- *               - order
- *               - studioName
- *             properties:
- *               name:
- *                 type: string
- *               date:
- *                 type: string
- *               time:
- *                 type: string
- *               board:
- *                 type: string
- *               class:
- *                 type: string
- *               subject:
- *                 type: string
- *               book:
- *                 type: string
- *               chapter:
- *                 type: string
- *               lesson:
- *                 type: string
- *               medium:
- *                 type: string
- *               type:
- *                 type: string
- *               order :
- *                 type: string
- *               studioName :
- *                 type: string
- *               liveStreamingPath:
- *                 type: string
- *               presenterName:
- *                 type: string
- *             example:
- *               name: Today Plan title
- *               date: 21/11/2023
- *               time: 10:00
- *               type: video
- *               board: CBSC
- *               class: class 08
- *               subject: Math
- *               book: Hindi
- *               chapter: chapter
- *               medium: hindi
- *               lesson: abc
- *               order: Order No 1
- *               studioName: Studio 1
- *               liveStreamingPath: Live Stream
- *               presenterName: onkar
+ *             $ref: '#/components/schemas/TodayPlanRequestBody'
  *     responses:
  *       201:
  *         description: Plan video successfully created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/PlanVideo'
+ *               $ref: '#/components/schemas/TodayPlan'
  *       400:
  *         $ref: '#/components/responses/BadRequest'
  *       401:
  *         $ref: '#/components/responses/Unauthorized'
- *       "403":
+ *       403:
  *         $ref: '#/components/responses/Forbidden'
  *
  *   get:
@@ -239,54 +179,7 @@ module.exports = router;
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               date:
- *                 type: string
- *               time:
- *                 type: string
- *               board:
- *                 type: string
- *               class:
- *                 type: string
- *               subject:
- *                 type: string
- *               book:
- *                 type: string
- *               chapter:
- *                 type: string
- *               lesson:
- *                 type: string
- *               medium:
- *                 type: string
- *               type:
- *                 type: string
- *               order:
- *                 type: string
- *               studioName :
- *                 type: string
- *               liveStreamingPath:
- *                 type: string
- *               presenterName:
- *                 type: string
- *             example:
- *               name: Today Plan title
- *               date: 21/11/2023
- *               time: 10:00
- *               type: video
- *               board: CBSC
- *               class: class 08
- *               subject: Math
- *               book: Hindi
- *               chapter: chapter
- *               medium: hindi
- *               lesson: abc
- *               order: Order No 1
- *               studioName: Studio 1
- *               liveStreamingPath: Live Stream
- *               presenterName: onkar
+ *             $ref: '#/components/schemas/TodayPlanRequestBody'
  *     responses:
  *       200:
  *         description: Plan video successfully updated
@@ -348,20 +241,28 @@ module.exports = router;
  *       500:
  *         $ref: '#/components/responses/InternalServer'
  */
-
 /**
  * @swagger
  * components:
  *   schemas:
- *     PlanVideo:
+ *     TodayPlanRequestBody:
  *       type: object
+ *       required:
+ *         - title
+ *         - date
+ *         - time
+ *         - type
+ *         - order
+ *         - studioName
  *       properties:
- *         name:
+ *         title:
  *           type: string
  *         date:
  *           type: string
+ *           format: date
  *         time:
  *           type: string
+ *           format: time
  *         type:
  *           type: string
  *         board:
@@ -376,33 +277,19 @@ module.exports = router;
  *           type: string
  *         chapter:
  *           type: string
- *         lesson:
- *           type: string
  *         order:
  *           type: string
  *         studioName:
  *           type: string
- *         status:
+ *         liveStreamingPath:
  *           type: string
- *           default: active
  *         presenterName:
  *           type: string
- *       required:
- *         - name
- *         - date
- *         - time
- *         - type
- *         - board
- *         - medium
- *         - class
- *         - subject
- *         - book
- *         - chapter
- *         - lesson
- *         - order
- *         - studioName
+ *         questions:
+ *           type: array
+ *           items:
+ *             type: string
  */
-
 /**
  * @swagger
  * components:

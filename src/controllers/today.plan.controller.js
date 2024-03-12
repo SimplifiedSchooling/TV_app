@@ -12,7 +12,7 @@ const createNewPlan = catchAsync(async (req, res) => {
 const getAllPlans = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name', 'board', 'class', 'subject', 'book', 'chapter', 'videoid']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  options.sortBy = 'order';
+  // options.sortBy = 'order';
   const result = await planvideoService.getAllPlans(filter, options);
   res.send(result);
 });

@@ -289,6 +289,12 @@ module.exports = router;
  *           type: array
  *           items:
  *             type: string
+ *         videoPath:
+ *           type: string
+ *         poster:
+ *           type: string
+ *         thumpnail:
+ *           type: string
  */
 /**
  * @swagger

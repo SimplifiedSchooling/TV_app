@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
@@ -52,11 +51,6 @@ const todayPlanSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    // status: {
-    //   type: String,
-    //   trim: true,
-    //   default: 'active',
-    // },
     liveStreamingPath: {
       type: String,
       trim: true,
@@ -69,7 +63,16 @@ const todayPlanSchema = mongoose.Schema(
       type: [String],
       default: [],
       trim: true,
-    }
+    },
+    videoPath: {
+      type: String,
+    },
+    poster: {
+      type: String,
+    },
+    thumpnail: {
+      type: String,
+    },
   },
   {
     timestamps: true,

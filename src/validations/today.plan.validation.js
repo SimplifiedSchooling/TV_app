@@ -19,6 +19,9 @@ const createNewPlan = {
     liveStreamingPath: Joi.string().allow('', null),
     presenterName: Joi.string().allow('', null),
     questions: Joi.array().items(Joi.string()).allow('', null),
+    videoPath: Joi.string(),
+    poster: Joi.string(),
+    thumpnail: Joi.string(),
   }),
 };
 
@@ -68,6 +71,9 @@ const updatePlanById = {
       liveStreamingPath: Joi.string().allow('', null),
       presenterName: Joi.string().allow('', null),
       questions: Joi.array().items(Joi.string()).allow('', null),
+      videoPath: Joi.string(),
+      poster: Joi.string(),
+      thumpnail: Joi.string(),
     })
     .min(1),
 };

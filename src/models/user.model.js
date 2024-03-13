@@ -9,17 +9,6 @@ const userSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    userId: {
-      type: String,
-      required: true,
-    },
-    scode: {
-      type: String,
-    },
-    mobNumber: {
-      type: Number,
-      required: true,
-    },
     userName: {
       type: String,
       required: true,

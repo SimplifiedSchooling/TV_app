@@ -6,10 +6,7 @@ const createUser = {
     userName: Joi.string().required(),
     password: Joi.string().required().custom(password),
     name: Joi.string().required(),
-    scode: Joi.string(),
     role: Joi.string().required(),
-    mobNumber: Joi.number().required(),
-    userId: Joi.string().required(),
   }),
 };
 
@@ -44,10 +41,7 @@ const updateUser = {
       userName: Joi.string(),
       password: Joi.string().custom(password),
       name: Joi.string(),
-      scode: Joi.string(),
       role: Joi.string(),
-      mobNumber: Joi.number(),
-      userId: Joi.string(),
     })
     .min(1),
 };

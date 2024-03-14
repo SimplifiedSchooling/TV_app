@@ -4,6 +4,8 @@ const userRoute = require('./user.route');
 const docsRoute = require('./docs.route');
 const config = require('../../config/config');
 const planvideoRoute = require('./today.plan.route');
+const presentatorRoute = require('./presentator.route');
+const studioRoute = require('./studio.route');
 
 const router = express.Router();
 
@@ -19,6 +21,14 @@ const defaultRoutes = [
   {
     path: '/todayplan',
     route: planvideoRoute,
+  },
+  {
+    path: '/presentator',
+    route: presentatorRoute,
+  },
+  {
+    path: '/studio',
+    route: studioRoute,
   },
 ];
 

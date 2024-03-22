@@ -10,7 +10,7 @@ router
   .post(validate(planValidation.createNewPlan), planvideoController.createNewPlan)
   .get(validate(planValidation.getAllPlan), planvideoController.getAllPlans);
 
-router.route('/todayplan').get(validate(planValidation.getTodayPlan), planvideoController.getTodayPlans);
+router.route('/scheduled-plan').get(validate(planValidation.getTodayPlan), planvideoController.getTodayPlans);
 
 router
   .route('/:planId')
@@ -223,7 +223,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /todayplan/todayplan:
+ * /todayplan/scheduled-plan:
  *   get:
  *     summary: Get all today plan videos
  *     tags: [TodayPlan]

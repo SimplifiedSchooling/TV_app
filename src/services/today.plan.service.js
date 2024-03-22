@@ -52,37 +52,44 @@ const getAllPlans = async (filter, options) => {
 //   ]);
 //   return todayPlans;
 // };
+// const getTodayPlans = async () => {
+//   const today = new Date();
+//   const todayDate = today.toLocaleDateString('en-GB'); // Format: 'DD/MM/YYYY'
+
+//   const todayPlans = await TodayPlan.aggregate([
+//     {
+//       $match: { date: todayDate },
+//     },
+//     {
+//       $lookup: {
+//         from: 'classes', // Assuming the collection name is 'classes'. Change it accordingly.
+//         localField: 'class',
+//         foreignField: 'className',
+//         as: 'classDetails',
+//       },
+//     },
+//     {
+//       $unwind: '$classDetails', // Unwind to access fields of the 'classDetails' array
+//     },
+//     {
+//       $group: {
+//         _id: '$class',
+//         classID: { $first: '$classDetails._id' }, // Use the class name
+//         className: { $first: '$classDetails.className' }, // Use the class name
+//         plans: { $addToSet: '$$ROOT' },
+//       },
+//     },
+//   ]);
+//   return todayPlans;
+// };
+
 const getTodayPlans = async () => {
-  const today = new Date();
-  const todayDate = today.toLocaleDateString('en-GB'); // Format: 'DD/MM/YYYY'
-
-  const todayPlans = await TodayPlan.aggregate([
-    {
-      $match: { date: todayDate },
-    },
-    {
-      $lookup: {
-        from: 'classes', // Assuming the collection name is 'classes'. Change it accordingly.
-        localField: 'class',
-        foreignField: 'className',
-        as: 'classDetails',
-      },
-    },
-    {
-      $unwind: '$classDetails', // Unwind to access fields of the 'classDetails' array
-    },
-    {
-      $group: {
-        _id: '$class',
-        classID: { $first: '$classDetails._id' }, // Use the class name
-        className: { $first: '$classDetails.className' }, // Use the class name
-        plans: { $addToSet: '$$ROOT' },
-      },
-    },
-  ]);
-  return todayPlans;
+  const today = new Date(); // Format: 'DD/MM/YYYY'
+  today.setUTCHours(0, 0, 0, 0); // Set the time to midnight
+  const todayISO = today.toISOString();
+  const result = await TodayPlan.find({ date: todayISO });
+  return result;
 };
-
 /**
  * Get TodayPlan by id
  * @param {ObjectId} planId
